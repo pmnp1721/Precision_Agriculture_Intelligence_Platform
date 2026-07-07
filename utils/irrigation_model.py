@@ -67,12 +67,78 @@ def load_irrigation_dataset(sample_rows=None):
                 return pd.read_csv(data_path, nrows=sample_rows)
             return pd.read_csv(data_path)
 
-    return pd.DataFrame(
+    fallback_rows = [
         {
-            "Irrigation_Need": ["Low", "Medium", "High"],
-            "Region": ["Unknown", "Unknown", "Unknown"],
-        }
-    )
+            "Soil_Type": "Loamy",
+            "Soil_pH": 6.1,
+            "Soil_Moisture": 34.0,
+            "Organic_Carbon": 1.02,
+            "Electrical_Conductivity": 2.5,
+            "Temperature_C": 24.8,
+            "Humidity": 61.0,
+            "Rainfall_mm": 820.0,
+            "Sunlight_Hours": 6.8,
+            "Wind_Speed_kmh": 13.2,
+            "Crop_Type": "Wheat",
+            "Crop_Growth_Stage": "Vegetative",
+            "Season": "Kharif",
+            "Irrigation_Type": "Drip",
+            "Water_Source": "Rainwater",
+            "Field_Area_hectare": 3.2,
+            "Mulching_Used": "Yes",
+            "Previous_Irrigation_mm": 42.0,
+            "Region": "North",
+            "Irrigation_Need": "Low",
+        },
+        {
+            "Soil_Type": "Clay",
+            "Soil_pH": 7.0,
+            "Soil_Moisture": 48.0,
+            "Organic_Carbon": 0.68,
+            "Electrical_Conductivity": 1.8,
+            "Temperature_C": 28.5,
+            "Humidity": 74.0,
+            "Rainfall_mm": 640.0,
+            "Sunlight_Hours": 7.3,
+            "Wind_Speed_kmh": 9.8,
+            "Crop_Type": "Rice",
+            "Crop_Growth_Stage": "Sowing",
+            "Season": "Rabi",
+            "Irrigation_Type": "Sprinkler",
+            "Water_Source": "River",
+            "Field_Area_hectare": 5.5,
+            "Mulching_Used": "No",
+            "Previous_Irrigation_mm": 38.0,
+            "Region": "South",
+            "Irrigation_Need": "Medium",
+        },
+        {
+            "Soil_Type": "Sandy",
+            "Soil_pH": 5.6,
+            "Soil_Moisture": 19.0,
+            "Organic_Carbon": 0.48,
+            "Electrical_Conductivity": 0.95,
+            "Temperature_C": 33.2,
+            "Humidity": 46.0,
+            "Rainfall_mm": 310.0,
+            "Sunlight_Hours": 8.9,
+            "Wind_Speed_kmh": 18.0,
+            "Crop_Type": "Maize",
+            "Crop_Growth_Stage": "Flowering",
+            "Season": "Zaid",
+            "Irrigation_Type": "Flood",
+            "Water_Source": "Canal",
+            "Field_Area_hectare": 2.8,
+            "Mulching_Used": "No",
+            "Previous_Irrigation_mm": 55.0,
+            "Region": "West",
+            "Irrigation_Need": "High",
+        },
+    ]
+    fallback_df = pd.DataFrame(fallback_rows)
+    if sample_rows:
+        return fallback_df.head(sample_rows)
+    return fallback_df
 
 
 def predict_irrigation(payload):
