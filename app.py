@@ -1102,14 +1102,25 @@ def page_analytics():
         fig.update_layout(height=430, margin=dict(l=10, r=10, t=25, b=10))
         col2.plotly_chart(fig, width="stretch")
     with tab2:
-        sample = idf.sample(min(30000, len(idf)), random_state=11)
+        sample = idf.sample(min(30000, max(1, len(idf))), random_state=11).copy()
+        sample = sample.dropna(subset=["Rainfall_mm", "Soil_Moisture", "Irrigation_Need"])
+        if sample.empty:
+            sample = pd.DataFrame(
+                {
+                    "Rainfall_mm": [500.0],
+                    "Soil_Moisture": [40.0],
+                    "Irrigation_Need": ["Low"],
+                    "Season": ["Kharif"],
+                }
+            )
         fig = px.scatter(
             sample,
             x="Rainfall_mm",
             y="Soil_Moisture",
             color="Irrigation_Need",
-            facet_col="Season",
+            hover_data=["Season", "Crop_Type", "Region"],
             color_discrete_map={"Low": "#47a867", "Medium": "#e8a735", "High": "#c6533d"},
+            size_max=18,
         )
         fig.update_layout(height=470, margin=dict(l=10, r=10, t=25, b=10))
         st.plotly_chart(fig, width="stretch")
