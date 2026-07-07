@@ -787,11 +787,20 @@ def page_irrigation():
 
     st.markdown("### Irrigation Dataset Analytics")
     idf = irrigation_data()
+    sample = idf.sample(min(20000, max(1, len(idf))), random_state=7).copy()
+    sample = sample.dropna(subset=["Soil_Moisture", "Irrigation_Need"])
+    if sample.empty:
+        sample = pd.DataFrame(
+            {
+                "Soil_Moisture": [40.0, 55.0, 25.0],
+                "Irrigation_Need": ["Low", "Medium", "High"],
+            }
+        )
     fig = px.histogram(
-        idf.sample(min(20000, len(idf)), random_state=7),
+        sample,
         x="Soil_Moisture",
         color="Irrigation_Need",
-        nbins=35,
+        nbins=20,
         color_discrete_map={"Low": "#47a867", "Medium": "#e8a735", "High": "#c6533d"},
     )
     fig.update_layout(height=420, margin=dict(l=10, r=10, t=25, b=10))
