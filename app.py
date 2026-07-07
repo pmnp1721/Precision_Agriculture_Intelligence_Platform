@@ -607,13 +607,6 @@ def configured_gemini_key():
     return secret_key or os.getenv("GEMINI_API_KEY", "")
 
 
-def page_overview():
-    hero(
-        "Precision Agriculture Intelligence Platform",
-        "A unified farm advisory dashboard for crop recommendation, disease analytics, irrigation prediction, yield forecasting, and agentic AI support.",
-    )
-
-
 def page_crop_recommendation():
     hero(
         "Crop Recommendation",
@@ -1068,8 +1061,7 @@ def page_analytics():
 
 
 PAGES = {
-    "🏠 Overview": page_overview,
-    "🌱 Crop Recommendation": page_crop_recommendation,
+    " Crop Recommendation": page_crop_recommendation,
     "🔬 Disease Detection": page_disease,
     "💧 Irrigation Prediction": page_irrigation,
     "📊 Yield Forecasting": page_yield,
