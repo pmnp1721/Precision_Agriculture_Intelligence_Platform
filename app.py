@@ -618,68 +618,17 @@ def page_overview():
     ydf = yield_data()
     disease = disease_artifacts()
 
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Crop Classes", cdf["label"].nunique())
-    col2.metric("Irrigation Records", f"{len(idf):,}")
-    col3.metric("Yield Countries", ydf["Area"].nunique())
-    col4.metric("Disease Classes", disease["class_summary"].shape[0])
-
-    st.markdown("### Farm Intelligence Snapshot")
-    left, middle, right = st.columns([1.1, 1, 1])
-    with left:
-        crop_counts = cdf["label"].value_counts().reset_index()
-        crop_counts.columns = ["Crop", "Samples"]
-        fig = px.bar(
-            crop_counts,
-            x="Crop",
-            y="Samples",
-            color="Samples",
-            color_continuous_scale=["#e8a735", "#47a867", "#1f7a4d"],
-        )
-        fig.update_layout(height=370, margin=dict(l=10, r=10, t=25, b=10))
-        st.plotly_chart(fig, width="stretch")
-    with middle:
-        need_counts = idf["Irrigation_Need"].value_counts().reset_index()
-        need_counts.columns = ["Need", "Count"]
-        fig = px.pie(
-            need_counts,
-            names="Need",
-            values="Count",
-            color="Need",
-            color_discrete_map={"Low": "#47a867", "Medium": "#e8a735", "High": "#c6533d"},
-            hole=0.42,
-        )
-        fig.update_layout(height=370, margin=dict(l=10, r=10, t=25, b=10))
-        st.plotly_chart(fig, width="stretch")
-    with right:
-        comparison = disease["model_comparison"]
-        fig = px.bar(
-            comparison,
-            x="model",
-            y="test_acc",
-            color="model",
-            color_discrete_sequence=["#1f7a4d", "#2f80a7", "#e8a735"],
-        )
-        fig.update_yaxes(range=[0.95, 1.0])
-        fig.update_layout(height=370, margin=dict(l=10, r=10, t=25, b=10), showlegend=False)
-        st.plotly_chart(fig, width="stretch")
-
-    st.markdown("### Module Readiness")
-    readiness = pd.DataFrame(
+    st.markdown("### Dashboard Summary")
+    summary = pd.DataFrame(
         [
-            ["Crop recommendation", "Ready", "RandomForest model artifact is present."],
-            ["Irrigation prediction", "Ready", "XGBoost pipeline and target encoder are present."],
-            ["Yield forecasting", "Ready", "Deployment bundle is present."],
-            [
-                "Disease detection",
-                "Analytics Ready",
-                "Disease analytics available. Image analysis uses a lightweight visual fallback when the trained checkpoint is not present.",
-            ],
-            ["AI farming assistant", "Ready", "Uses tool routing, optional Gemini final reasoning."],
+            ["Crop recommendation", cdf["label"].nunique()],
+            ["Irrigation records", len(idf)],
+            ["Yield countries", ydf["Area"].nunique()],
+            ["Disease classes", disease["class_summary"].shape[0]],
         ],
-        columns=["Module", "Status", "Note"],
+        columns=["Module", "Available Records"],
     )
-    st.dataframe(readiness, width="stretch", hide_index=True)
+    st.dataframe(summary, width="stretch", hide_index=True)
 
 
 def page_crop_recommendation():
