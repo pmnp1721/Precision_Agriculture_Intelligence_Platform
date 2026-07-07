@@ -1122,22 +1122,20 @@ def page_analytics():
         if sample.empty:
             sample = pd.DataFrame(
                 {
-                    "Rainfall_mm": [500.0],
-                    "Soil_Moisture": [40.0],
-                    "Irrigation_Need": ["Low"],
-                    "Season": ["Kharif"],
+                    "Rainfall_mm": [500.0, 800.0, 1200.0],
+                    "Soil_Moisture": [40.0, 55.0, 25.0],
+                    "Irrigation_Need": ["Low", "Medium", "High"],
+                    "Season": ["Kharif", "Rabi", "Zaid"],
                 }
             )
-        fig = px.scatter(
+        fig = px.bar(
             sample,
-            x="Rainfall_mm",
+            x="Irrigation_Need",
             y="Soil_Moisture",
             color="Irrigation_Need",
-            hover_data=["Season", "Crop_Type", "Region"],
             color_discrete_map={"Low": "#47a867", "Medium": "#e8a735", "High": "#c6533d"},
-            size_max=18,
         )
-        fig.update_layout(height=470, margin=dict(l=10, r=10, t=25, b=10))
+        fig.update_layout(height=470, margin=dict(l=10, r=10, t=25, b=10), showlegend=False)
         st.plotly_chart(fig, width="stretch")
     with tab3:
         country = st.selectbox("Country", sorted(ydf["Area"].unique()), index=sorted(ydf["Area"].unique()).index("India") if "India" in set(ydf["Area"]) else 0)
