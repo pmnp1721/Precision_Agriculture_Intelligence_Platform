@@ -613,23 +613,6 @@ def page_overview():
         "A unified farm advisory dashboard for crop recommendation, disease analytics, irrigation prediction, yield forecasting, and agentic AI support.",
     )
 
-    cdf = crop_data()
-    idf = irrigation_data()
-    ydf = yield_data()
-    disease = disease_artifacts()
-
-    st.markdown("### Dashboard Summary")
-    summary = pd.DataFrame(
-        [
-            ["Crop recommendation", cdf["label"].nunique()],
-            ["Irrigation records", len(idf)],
-            ["Yield countries", ydf["Area"].nunique()],
-            ["Disease classes", disease["class_summary"].shape[0]],
-        ],
-        columns=["Module", "Available Records"],
-    )
-    st.dataframe(summary, width="stretch", hide_index=True)
-
 
 def page_crop_recommendation():
     hero(
