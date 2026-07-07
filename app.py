@@ -788,6 +788,9 @@ def page_irrigation():
     st.markdown("### Irrigation Dataset Analytics")
     idf = irrigation_data()
     sample = idf.sample(min(20000, max(1, len(idf))), random_state=7).copy()
+    for column in ["Soil_Moisture", "Irrigation_Need"]:
+        if column not in sample.columns:
+            sample[column] = pd.NA
     sample = sample.dropna(subset=["Soil_Moisture", "Irrigation_Need"])
     if sample.empty:
         sample = pd.DataFrame(
@@ -1112,6 +1115,9 @@ def page_analytics():
         col2.plotly_chart(fig, width="stretch")
     with tab2:
         sample = idf.sample(min(30000, max(1, len(idf))), random_state=11).copy()
+        for column in ["Rainfall_mm", "Soil_Moisture", "Irrigation_Need"]:
+            if column not in sample.columns:
+                sample[column] = pd.NA
         sample = sample.dropna(subset=["Rainfall_mm", "Soil_Moisture", "Irrigation_Need"])
         if sample.empty:
             sample = pd.DataFrame(
