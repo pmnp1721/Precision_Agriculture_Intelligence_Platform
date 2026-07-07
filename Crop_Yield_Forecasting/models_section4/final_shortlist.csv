@@ -1,0 +1,4 @@
+model,rank_rationale,family,R2_test,RMSE_test,RMSE_test_excl_Sudan,MeanResidual_2013,overfit_gap,RMSE_improve_vs_base%,fit_time_sec,predict_time_ms
+Lasso," Lowest RMSE, best generalization, auto feature selection",Linear,0.9627,17043.8,17076.8,674.5,0.0077,0.99,36.319,0.006
+Ridge," Tied RMSE, more stable coefficients (interpretability)",Linear,0.9627,17051.5,17084.4,670.3,0.0078,0.95,0.163,0.006
+CatBoost, Strongest non-linear — proves non-linear did not add value,Boosting,0.9625,17095.0,17108.3,1727.0,0.0204,0.7,79.958,0.005

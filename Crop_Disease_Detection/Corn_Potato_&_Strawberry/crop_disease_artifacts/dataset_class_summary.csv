@@ -1,0 +1,10 @@
+,train,val,test,total
+Corn (Maize) - Cercospora Leaf Spot,1642,369,45,2056
+Corn (Maize) - Common Rust,1907,429,48,2384
+Corn (Maize) - Healthy,1859,418,47,2324
+Corn (Maize) - Northern Leaf Blight,1908,429,48,2385
+Potato - Early Blight,1939,436,49,2424
+Potato - Healthy,1824,410,46,2280
+Potato - Late Blight,1939,436,49,2424
+Strawberry - Healthy,1824,410,46,2280
+Strawberry - Leaf Scorch,1774,399,45,2218

@@ -1,0 +1,6 @@
+.streamlit/secrets.toml
+.env
+.env.*
+__pycache__/
+*.pyc
+Irrigation_Prediction/IrrigationNeedDataset/train.csv
